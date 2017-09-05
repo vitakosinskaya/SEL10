@@ -17,7 +17,7 @@ namespace csharp_example
         [SetUp]
         public void start()
         {
-            driver = new InternetExplorerDriver(@"C:\Tools\");
+            driver = new InternetExplorerDriver();
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
