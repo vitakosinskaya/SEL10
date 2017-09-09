@@ -20,7 +20,7 @@ using System.Collections;
 namespace csharp_example
 {
     [TestFixture]
-    public class MyFifthfTest
+    public class MyFithfTest
     {
         private IWebDriver driver;
         private WebDriverWait wait;
@@ -35,13 +35,13 @@ namespace csharp_example
         }
 
         [Test]
-        public void FourthTest()
+        public void FithfTest()
         {
-            driver.Url = "http://localhost/litecart/admin/?app=countries&doc=countries";
+            driver.Url = "http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones";
             driver.FindElement(By.Name("username")).SendKeys("admin");
             driver.FindElement(By.Name("password")).SendKeys("admin");
             driver.FindElement(By.Name("login")).Click();
-            wait.Until(ExpectedConditions.TitleIs("Countries | My Store"));
+            wait.Until(ExpectedConditions.TitleIs("Geo Zones | My Store"));
 
             int all = driver.FindElements(By.CssSelector(".row")).Count(); 
              for (int i = 0; i < all; i++)
@@ -49,53 +49,28 @@ namespace csharp_example
 
             List <IWebElement> menu = null;
             menu = new List<IWebElement>(driver.FindElements(By.CssSelector(".row")));
-                //  foreach (IWebElement countrylist in menu) //если так делать ловлю stale element reference
-                // {
-
+                
                 List<IWebElement> country = null;
                 country = new List<IWebElement>(menu[i].FindElements(By.TagName("td")));
-                
-                if (!country[5].Text.Equals("0"))
-                {
-                    country[4].FindElement(By.CssSelector("a")).Click();
-                    wait.Until(ExpectedConditions.TitleIs("Edit Country | My Store"));
+                 country[2].FindElement(By.CssSelector("a")).Click();
+                    wait.Until(ExpectedConditions.TitleIs("Edit Geo Zone | My Store"));
                     List<IWebElement> statelist = null;
-                    statelist = new List<IWebElement>(driver.FindElements(By.CssSelector("#table-zones tr:not(.header)")));
+                    statelist = new List<IWebElement>(driver.FindElements(By.CssSelector("#table-zones td:nth-child(3)")));
                     foreach (IWebElement staterow in statelist)
                     {
-                        List<IWebElement> state = null;
-                        state = new List<IWebElement>(staterow.FindElements(By.TagName("td")));
-                        //  String zero = "A";
-                        //  if (zero.CompareTo(state[2].Text) < 0) zero = state[2].Text;
-                        rowrow.Add(state[2].Text);
-                    }
-                    letters(rowrow);
+                    rowrow.Add(staterow.FindElement(By.CssSelector("[selected=selected]")).Text);
+                      
+                }
+                    Letters(rowrow);
                    
                     driver.Navigate().Back();
-                }
-               
+            
             }
                         driver.Close();
         }
 
-        [Test]
-        public void FourthTestB()
-        {
-            driver.Url = "http://localhost/litecart/admin/?app=countries&doc=countries";
-            driver.FindElement(By.Name("username")).SendKeys("admin");
-            driver.FindElement(By.Name("password")).SendKeys("admin");
-            driver.FindElement(By.Name("login")).Click();
-            wait.Until(ExpectedConditions.TitleIs("Countries | My Store"));
-            List<IWebElement> countries = null;
-            countries = new List<IWebElement>(driver.FindElements(By.CssSelector(".row td:nth-child(5) a")));
-            foreach (IWebElement onecountry in countries)
-            {
-                rowrow.Add(onecountry.Text);
-            }
-            letters(rowrow);
-        }
 
-        private void letters(List<String> names)
+        private void Letters(List<String> names)
         {
             for (int i = 0; i < names.Count - 2; i++)
             {
@@ -107,7 +82,7 @@ namespace csharp_example
             rowrow.Clear();
         }
         [TearDown]
-        public void stop()
+        public void Stop()
         {
             driver.Quit();
             driver = null;
