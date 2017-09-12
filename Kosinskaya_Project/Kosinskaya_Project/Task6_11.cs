@@ -53,8 +53,16 @@ namespace csharp_example
             IWebElement element = driver.FindElement(By.CssSelector(".content select:last-child")); 
             element.Click();
             element.SendKeys("Alabama");
-            //driver.FindElement(By.CssSelector("select")).SendKeys("Alabama" + Keys.Enter);
-            driver.FindElement(By.Name("email")).SendKeys("Birminghamcity@city.com");
+
+           
+            Random mail = new Random();
+            int r = mail.Next(1, 100); 
+            Double result = r;
+
+            IWebElement input = driver.FindElement(By.Name("email"));
+            input.SendKeys(r + "@city.com");
+
+
             driver.FindElement(By.Name("phone")).SendKeys("+79000000000");
             driver.FindElement(By.Name("password")).SendKeys("Birmingham");
             driver.FindElement(By.Name("confirmed_password")).SendKeys("Birmingham");
@@ -64,7 +72,7 @@ namespace csharp_example
 
             driver.FindElement(By.CssSelector("#box-account li:last-child a")).Click();
             
-            driver.FindElement(By.Name("email")).SendKeys("Birminghamcity@city.com");
+            driver.FindElement(By.Name("email")).SendKeys(r + "@city.com");
             driver.FindElement(By.Name("password")).SendKeys("Birmingham");
             driver.FindElement(By.Name("login")).Click();
             driver.FindElement(By.CssSelector("#box-account li:last-child a")).Click();
