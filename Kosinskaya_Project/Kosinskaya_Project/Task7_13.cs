@@ -1,0 +1,88 @@
+﻿using System;
+using System.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using NUnit.Framework;
+using NUnit.Compatibility;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+using System.Threading;
+using System.Collections.ObjectModel;
+using OpenQA.Selenium.Support.PageObjects;
+using System.Drawing;
+using System.Collections;
+
+
+namespace csharp_example
+{
+    [TestFixture]
+    public class MySeventhTest
+    {
+        private IWebDriver driver;
+        private WebDriverWait wait;
+
+
+
+
+        [SetUp]
+        public void start()
+        {
+            driver = new ChromeDriver();
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+        }
+
+        [Test]
+        public void SeventhTest()
+        {
+            driver.Url = "http://localhost/litecart/en/";
+            wait.Until(ExpectedConditions.TitleIs("Online Store | My Store"));
+
+            for (int i = 0; i < 3; i++)
+            {
+
+                driver.FindElement(By.CssSelector("#box-most-popular li:first-child a:first-child")).Click();
+                wait.Until(ExpectedConditions.ElementIsVisible(By.Name("add_cart_product")));
+                int size = driver.FindElements(By.Name("options[Size]")).Count();
+                if (size != 0)
+                {
+                    IWebElement element = driver.FindElement(By.Name("options[Size]"));
+                    element.Click();
+                    element.SendKeys("Small");
+                }
+                //List<String> first = new List<String>();
+                //  first.Add(driver.FindElement(By.CssSelector(".quantity")).Text);
+
+                driver.FindElement(By.Name("add_cart_product")).Click();
+                IWebElement things = driver.FindElement(By.CssSelector("#cart a:nth-child(2) .quantity"));
+                String x = things.Text;
+                wait.Until(ExpectedConditions.TextToBePresentInElement(things, (x + i)));
+
+                //wait.Until(ExpectedConditions.ElementExists(By.CssSelector(".quantity")));
+                // IWebElement element2 = wait.Until(d => d.FindElement(By.CssSelector(".quantity"))).Text.Contains(i+1);
+                driver.Url = "http://localhost/litecart/en/";
+
+            }
+            driver.FindElement(By.CssSelector("#cart a:last-child")).Click();
+            int item = driver.FindElements(By.CssSelector("td.item")).Count();
+            for (int i = 0; i < item; i++)
+            {
+                IWebElement table = driver.FindElement(By.Name("item"));
+                driver.FindElement(By.Name("remove_cart_item")).Click();
+                wait.Until(ExpectedConditions.StalenessOf(table));
+            }
+
+
+                driver.Close();
+        }
+
+        [TearDown]
+        public void stop()
+        {
+            driver.Quit();
+            driver = null;
+        }
+    }
+}
