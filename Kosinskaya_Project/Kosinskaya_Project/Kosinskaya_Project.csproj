@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Task8_14.cs" />
     <Compile Include="Task7_13.cs" />
     <Compile Include="Task6_12.cs" />
     <Compile Include="Task6_11.cs" />

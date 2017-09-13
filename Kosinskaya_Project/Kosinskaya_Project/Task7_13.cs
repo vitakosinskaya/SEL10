@@ -52,16 +52,18 @@ namespace csharp_example
                     element.Click();
                     element.SendKeys("Small");
                 }
-                //List<String> first = new List<String>();
-                //  first.Add(driver.FindElement(By.CssSelector(".quantity")).Text);
+                
 
                 driver.FindElement(By.Name("add_cart_product")).Click();
-                IWebElement things = driver.FindElement(By.CssSelector("#cart a:nth-child(2) .quantity"));
-                String x = things.Text;
-                wait.Until(ExpectedConditions.TextToBePresentInElement(things, (x + i)));
 
-                //wait.Until(ExpectedConditions.ElementExists(By.CssSelector(".quantity")));
-                // IWebElement element2 = wait.Until(d => d.FindElement(By.CssSelector(".quantity"))).Text.Contains(i+1);
+                var quantity = Int32.Parse(driver.FindElement(By.CssSelector("div#cart span.quantity")).Text);
+                wait.Until(ExpectedConditions.ElementExists(By.XPath(
+               string.Format("//div[@id='cart']//span[@class='quantity' and .='{0}']", quantity + 1))));
+                //IWebElement things = driver.FindElement(By.CssSelector("#cart a:nth-child(2) .quantity"));
+                // String x = things.Text;                
+                // wait.Until(ExpectedConditions.TextToBePresentInElement(things, (x + i)));
+
+                
                 driver.Url = "http://localhost/litecart/en/";
 
             }
