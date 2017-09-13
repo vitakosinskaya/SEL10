@@ -74,7 +74,7 @@ namespace csharp_example
                 wait.Until(ExpectedConditions.StalenessOf(table));
             }
 
-            Thread.Sleep(2000);
+            
                 driver.Close();
         }
 
