@@ -59,6 +59,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="pages\CartPage.cs" />
+    <Compile Include="App\Applications.cs" />
+    <Compile Include="pages\MainPage.cs" />
+    <Compile Include="pages\page.cs" />
+    <Compile Include="pages\ProductPage.cs" />
     <Compile Include="Task10_17.cs" />
     <Compile Include="Task8_14.cs" />
     <Compile Include="Task7_13.cs" />
@@ -70,6 +75,8 @@
     <Compile Include="Task4_7.cs" />
     <Compile Include="Task2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="test\cart.cs" />
+    <Compile Include="test\base.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
